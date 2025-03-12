@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>navdialog Example</title>
+    <script src="https://jte.mehfi.us/src/jte.js"></script>
+    <script src="../src/navdialog.js"></script>
+    <link rel="stylesheet" href="http://localhost:3006/ux.css">
+    <style>
+        body,button {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <h1>navdialog Example</h1>
+    <button onclick="open_example_dialog()">Open Dialog</button>
+
+    <script>
+        const main_content = jte({
+            tag: 'p',
+            textnode: 'This is the main content of the dialog'
+        });
+
+        const example_dialog = navdialog.create_dialog(main_content, {
+            on_save: function() {
+                console.log('Save button clicked');
+                navdialog.close_dialog(this.parentElement.parentElement);
+            },
+            on_attach: function() {
+                console.log('Attach button clicked');
+                navdialog.close_dialog(this.parentElement.parentElement);
+            },
+            on_delete: function() {
+                console.log('Delete button clicked');
+                navdialog.close_dialog(this.parentElement.parentElement);
+            }
+        });
+
+        function open_example_dialog() {
+            navdialog.show_dialog(example_dialog);
+        }
+    </script>
+</body>
+
+</html>
