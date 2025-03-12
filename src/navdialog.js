@@ -5,7 +5,7 @@
 // ╚══════════════════════╝
 
 const navdialog = (function() {
-	const create_dialog = (main_content, { on_save, on_attach, on_delete }) => {
+	const create_dialog = (main_content, { on_save, on_attach, on_delete }, footer_content) => {
 		const dialog = jte({
 			tag: 'dialog'
 		});
@@ -55,14 +55,7 @@ const navdialog = (function() {
 		const footer = jte({
 			tag: 'footer'
 		});
-
-		const close_button = jte({
-			tag: 'button',
-			textnode: 'Close',
-			onclick: function() { navdialog.close_dialog(this.parentElement.parentElement.parentElement) }
-		});
-
-		footer.append(close_button);
+		footer.append(footer_content);
 
 		dialog.append(header, content, footer);
 		return dialog;

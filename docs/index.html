@@ -8,13 +8,6 @@
     <script src="https://jte.mehfi.us/src/jte.js"></script>
     <script src="../src/navdialog.js"></script>
     <link rel="stylesheet" href="http://localhost:3006/ux.css">
-    <style>
-        body,button {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-
-    </style>
 </head>
 
 <body>
@@ -25,6 +18,12 @@
         const main_content = jte({
             tag: 'p',
             textnode: 'This is the main content of the dialog'
+        });
+
+        const footer_content = jte({
+            tag: 'button',
+            textnode: 'Close',
+            onclick: function() { navdialog.close_dialog(this.parentElement.parentElement.parentElement) }
         });
 
         const example_dialog = navdialog.create_dialog(main_content, {
@@ -40,7 +39,7 @@
                 console.log('Delete button clicked');
                 navdialog.close_dialog(this.parentElement.parentElement);
             }
-        });
+        }, footer_content);
 
         function open_example_dialog() {
             navdialog.show_dialog(example_dialog);
