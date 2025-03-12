@@ -5,7 +5,7 @@
 // ╚══════════════════════╝
 
 const navdialog = (function() {
-	const create_dialog = (main_content, { on_save, on_attach, on_delete }, footer_content) => {
+	const create_dialog = (main_content, { on_save, on_attach, on_delete, label_text = 'Formulário' }, footer_content) => {
 		const dialog = jte({
 			tag: 'dialog'
 		});
@@ -42,7 +42,7 @@ const navdialog = (function() {
 
 		const label = jte({
 			tag: 'label',
-			textnode: 'Agendamento de consultas'
+			textnode: label_text
 		});
 
 		header.append(back_button, label, delete_button, attach_button, save_button);

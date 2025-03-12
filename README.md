@@ -20,8 +20,9 @@ const my_dialog = navdialog.create_dialog(main_content, {
     },
     on_delete: function() {
         // Custom delete logic
-    }
-});
+    },
+    label_text: 'Custom Label' // Optional
+}, footer_content);
 ```
 
 ### Showing a Dialog
@@ -41,6 +42,12 @@ const content = jte({
     textnode: 'This is some dialog content'
 });
 
+const footer_content = jte({
+    tag: 'button',
+    textnode: 'Close',
+    onclick: function() { navdialog.close_dialog(this.parentElement.parentElement.parentElement) }
+});
+
 const dialog = navdialog.create_dialog(content, {
     on_save: function() {
         console.log('Save button clicked');
@@ -53,16 +60,17 @@ const dialog = navdialog.create_dialog(content, {
     on_delete: function() {
         console.log('Delete button clicked');
         navdialog.close_dialog(this.parentElement.parentElement);
-    }
-});
+    },
+    label_text: 'Agendamento de consultas'
+}, footer_content);
 
 navdialog.show_dialog(dialog);
 ```
 
 ## API
 
-### `create_dialog(content, options)`
-Creates a new dialog element with the provided content and options
+### `create_dialog(content, options, footer_content)`
+Creates a new dialog element with the provided content, options, and footer content
 
 #### Parameters
 - `content`: HTMLElement - The main content of the dialog
@@ -70,6 +78,8 @@ Creates a new dialog element with the provided content and options
   - `on_save`: Function - Callback for save button
   - `on_attach`: Function - Callback for attach button
   - `on_delete`: Function - Callback for delete button
+  - `label_text`: String - Custom label text (default: 'Formulário')
+- `footer_content`: HTMLElement - The footer content of the dialog
 
 ### `show_dialog(dialog)`
 Displays the created dialog
