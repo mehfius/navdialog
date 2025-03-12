@@ -52,12 +52,17 @@ const navdialog = (function() {
 		});
 		content.append(main_content);
 
-		const footer = jte({
-			tag: 'footer'
-		});
-		footer.append(footer_content);
+		const elements_to_append = [header, content];
+		
+		if (footer_content) {
+			const footer = jte({
+				tag: 'footer'
+			});
+			footer.append(footer_content);
+			elements_to_append.push(footer);
+		}
 
-		dialog.append(header, content, footer);
+		dialog.append(...elements_to_append);
 		return dialog;
 	}
 
