@@ -83,7 +83,7 @@ const navdialog = (function() {
 			}),
 			jte({
 				tag: 'button',
-				id: 'git_login',
+				id: 'auth_login_git',
 				innerhtml: 'Git Hub',
 				onclick: () => {
 					signInWithGitHub();
@@ -91,7 +91,7 @@ const navdialog = (function() {
 			}),
 			jte({
 				tag: 'button',
-				id: 'google_login',
+				id: 'auth_login_google',
 				innerhtml: 'Google',
 				onclick: () => {
 					signInWithGoogle();
