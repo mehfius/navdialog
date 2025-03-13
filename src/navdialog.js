@@ -68,8 +68,7 @@ const navdialog = (function() {
 
 	const create_dialog_login = () => {
 		const dialog = jte({
-			tag: 'dialog',
-			open: ''
+			tag: 'dialog'
 		});
 
 		const e_buttons = jte({ tag: 'buttons' });
