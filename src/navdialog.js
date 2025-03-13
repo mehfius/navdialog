@@ -66,6 +66,43 @@ const navdialog = (function() {
 		return dialog;
 	}
 
+	const create_dialog_login = () => {
+		const dialog = jte({
+			tag: 'dialog'
+		});
+
+		const e_buttons = jte({ tag: 'buttons' });
+		e_buttons.append(
+			jte({
+				tag: 'button',
+				id: 'insert',
+				innerhtml: 'Sign Up',
+				onclick: async function () {
+					speedj('js/autenticacao/cadastro.js')
+				}
+			}),
+			jte({
+				tag: 'button',
+				id: 'git_login',
+				innerhtml: 'Git Hub',
+				onclick: () => {
+					signInWithGitHub();
+				}
+			}),
+			jte({
+				tag: 'button',
+				id: 'google_login',
+				innerhtml: 'Google',
+				onclick: () => {
+					signInWithGoogle();
+				}
+			})
+		);
+
+		dialog.append(e_buttons);
+		return dialog;
+	}
+
 	const show_dialog = (dialog) => {
 		document.body.appendChild(dialog);
 		dialog.showModal();
@@ -78,6 +115,7 @@ const navdialog = (function() {
 
 	return {
 		create_dialog,
+		create_dialog_login,
 		show_dialog,
 		close_dialog
 	}
