@@ -68,7 +68,13 @@ const navdialog = (function() {
 
 	const create_dialog_login = () => {
 		const dialog = jte({
-			tag: 'dialog'
+			tag: 'dialog',
+			type: 'auth'
+		});
+
+		const label = jte({
+			tag: 'label',
+			textnode: 'Authentication'
 		});
 
 		const e_buttons = jte({ tag: 'buttons' });
@@ -99,7 +105,7 @@ const navdialog = (function() {
 			})
 		);
 
-		dialog.append(e_buttons);
+		dialog.append(label, e_buttons);
 		return dialog;
 	}
 
