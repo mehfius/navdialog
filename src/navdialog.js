@@ -78,32 +78,61 @@ const navdialog = (function() {
 		});
 
 		const e_buttons = jte({ tag: 'buttons' });
-		e_buttons.append(
-			jte({
-				tag: 'button',
-				id: 'insert',
-				innerhtml: 'Sign Up',
-				onclick: async function () {
-					speedj('js/autenticacao/cadastro.js')
-				}
-			}),
-			jte({
-				tag: 'button',
-				id: 'auth_login_git',
-				innerhtml: 'Git Hub',
-				onclick: () => {
-					signInWithGitHub();
-				}
-			}),
-			jte({
-				tag: 'button',
-				id: 'auth_login_google',
-				innerhtml: 'Google',
-				onclick: () => {
-					signInWithGoogle();
-				}
-			})
-		);
+		
+		// Check if auth.SSO_PROVIDERS exists and is valid
+		const valid_providers = ['email', 'google', 'github'];
+		
+		if (!globalThis.auth?.SSO_PROVIDERS || !Array.isArray(globalThis.auth.SSO_PROVIDERS)) {
+			console.error('navdialog: SSO_PROVIDERS not configured. Set globalThis.auth.SSO_PROVIDERS as an array with one or more of: email,google,github');
+			return dialog;
+		}
+
+		// Validate provider values
+		const invalid_providers = globalThis.auth.SSO_PROVIDERS.filter(provider => !valid_providers.includes(provider));
+		if (invalid_providers.length > 0) {
+			console.error(`navdialog: Invalid SSO providers found: ${invalid_providers.join(', ')}. Valid options are: email,google,github`);
+			return dialog;
+		}
+
+		// Add provider buttons based on SSO_PROVIDERS
+		if (globalThis.auth.SSO_PROVIDERS.includes('email')) {
+			e_buttons.append(
+				jte({
+					tag: 'button',
+					id: 'auth_login_email',
+					innerhtml: 'Email',
+					onclick: () => {
+						signInWithEmail();
+					}
+				})
+			);
+		}
+
+		if (globalThis.auth.SSO_PROVIDERS.includes('github')) {
+			e_buttons.append(
+				jte({
+					tag: 'button',
+					id: 'auth_login_git',
+					innerhtml: 'Git Hub',
+					onclick: () => {
+						signInWithGitHub();
+					}
+				})
+			);
+		}
+
+		if (globalThis.auth.SSO_PROVIDERS.includes('google')) {
+			e_buttons.append(
+				jte({
+					tag: 'button',
+					id: 'auth_login_google',
+					innerhtml: 'Google',
+					onclick: () => {
+						signInWithGoogle();
+					}
+				})
+			);
+		}
 
 		dialog.append(label, e_buttons);
 		return dialog;
