@@ -138,19 +138,54 @@ const navdialog = (function() {
 		return dialog;
 	}
 
+	const create_dialog_alert = (label_text, content_text) => {
+		const dialog = document.createElement('dialog');
+		dialog.setAttribute('type', 'alert');
+
+		const label = jte({
+			tag: 'label',
+			textnode: label_text
+		});
+
+		const content = jte({
+			tag: 'content',
+			textnode: content_text
+		});
+
+		const ok_button = jte({
+			tag: 'button',
+			textnode: 'OK',
+			onclick: function() {
+				navdialog.close_dialog(dialog);
+			}
+		});
+
+		dialog.append(label, content, ok_button);
+		return dialog;
+	}
+
 	const show_dialog = (dialog) => {
 		document.body.appendChild(dialog);
-		dialog.showModal();
+		if (typeof dialog.showModal === 'function') {
+			dialog.showModal();
+		} else {
+			console.error('HTMLDialogElement.showModal() is not supported in this browser');
+		}
 	}
 
 	const close_dialog = (dialog) => {
-		dialog.close();
-		dialog.remove();
+		if (dialog && typeof dialog.close === 'function') {
+			dialog.close();
+			dialog.remove();
+		} else {
+			console.error('Invalid dialog element provided');
+		}
 	}
 
 	return {
 		create_dialog,
 		create_dialog_login,
+		create_dialog_alert,
 		show_dialog,
 		close_dialog
 	}
