@@ -45,8 +45,17 @@ const navdialog = (function() {
 			textnode: label_text
 		});
 
-		header.append(back_button, label, delete_button, attach_button, save_button);
+		header.append(back_button, label);
 
+		if(on_delete){
+			header.append(delete_button)
+		}
+		if(on_attach){
+			header.append(attach_button)
+		}
+		if(on_save){
+			header.append(save_button)
+		}
 		const content = jte({
 			tag: 'content'
 		});
